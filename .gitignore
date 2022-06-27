@@ -20,3 +20,4 @@ yarn-error.log*
 
 .VSCodeCounter/
 .github/workflows/**
+README.md
