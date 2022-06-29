@@ -18,5 +18,6 @@ async function run () {
      break
     case 'install' :
       projects.install()
+      break
   }
 }
