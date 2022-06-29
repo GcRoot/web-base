@@ -17,10 +17,17 @@ export class Packages {
   constructor(packages:Array<Package>){
     this.packages = packages
     this.package = new Package('package.json', resolve(__dirname,'../../') )
+    this.initMarks()
   }
 
   public setMarks(){
     fs.writeFileSync(resolve(__dirname,'../../.xd'),JSON.stringify(this.marks,null,2),'utf-8')
+  }
+
+  public initMarks(){
+    const filestr = fs.readFileSync(resolve(__dirname,'../../.xd'),'utf-8')
+    const json = JSON.parse(filestr)
+    this.marks = json
   }
 
   public start(){}
