@@ -18,5 +18,7 @@ export class Packages {
     this.package = new Package('package.json', resolve(__dirname,'../../') )
   }
   public start(){}
-  public install(){}
+  public install(){
+
+  }
 }
