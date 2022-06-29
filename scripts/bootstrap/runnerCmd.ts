@@ -1,5 +1,5 @@
 import {exec,ExecOptions} from "child_process"
-import { } from "util"
+// import { } from "util"
 export function runCmd(command:string,options:ExecOptions){
   return new Promise((resolve,reject) =>{
     try {
@@ -15,7 +15,8 @@ export function runCmd(command:string,options:ExecOptions){
         resolve(null)
       })
     } catch (error) {
-     
+     console.log(error.message)
+     reject(error)
     }
   })
 }
