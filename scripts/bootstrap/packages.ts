@@ -20,7 +20,7 @@ export class Packages {
   }
 
   public setMarks(){
-    fs.writeFileSync(resolve(__dirname,'../../.xd'),JSON.stringify(this.marks,null，2),'utf-8')
+    fs.writeFileSync(resolve(__dirname,'../../.xd'),JSON.stringify(this.marks,null,2),'utf-8')
   }
 
   public start(){}
