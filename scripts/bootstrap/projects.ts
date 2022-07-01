@@ -7,8 +7,6 @@ import fs from 'fs'
 let filesarray = []
 // 根据指令 还是固定？来获取子项目路径数据
 function diffPath(pattern: RegExp,dir:string,exclude:RegExp){
-  // const pathdir:string = cmd || 'project'
-  // const dir = resolve(__dirname,`../../${pathdir}`)
  
   const files = fs.readdirSync(dir)
 

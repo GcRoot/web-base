@@ -29,4 +29,8 @@ export class Package {
     // 执行命令 （当前工程的 不跨项目）
   await this.openCmd('yarn install')
   }
+
+  public async runStart() {
+    //todo 需要线程管理工具协助管理不同类型项目启动
+  }
 }

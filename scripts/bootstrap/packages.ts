@@ -30,7 +30,11 @@ export class Packages {
     this.marks = json
   }
 
-  public start(){}
+  public start(){
+    //todo 支持不同类型项目启动
+    this.packages.forEach(x => x.runStart())
+  }
+
   public install(){
     this.packages.map((pake:Package) => pake.runInstall())
     // 标记状态
