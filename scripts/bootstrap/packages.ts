@@ -32,8 +32,12 @@ export class Packages {
     const filestr = fs.readFileSync(resolve(__dirname,'../../.xd'),'utf-8')
     const json = JSON.parse(filestr)
     this.marks = json
-
   }
+ /**
+  *  边界考虑：
+  * 基座更新了版本号记录在了线程列表中，而子项目更新版本号问题？？ 需要吗？
+  * 
+ */
 
   public start(){
     //todo 支持不同类型项目启动
