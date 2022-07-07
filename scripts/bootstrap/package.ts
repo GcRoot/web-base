@@ -32,5 +32,9 @@ export class Package {
 
   public async runStart() {
     //todo 需要线程管理工具协助管理不同类型项目启动
+
+  }
+  public getPackType(){
+    return this.json.xCli?.type
   }
 }

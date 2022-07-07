@@ -4,7 +4,9 @@ export interface PackageInfo {
   name: string,
   version: Array<number>,
   main: string,
-  
+  xCli?:{
+    type?: 'service'| 'app' | 'lib' | 'cli',
+  },
   dependencies :{
     [dep:string] :string
   }
