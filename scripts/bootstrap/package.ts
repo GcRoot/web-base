@@ -32,7 +32,20 @@ export class Package {
 
   public async runStart() {
     //todo 需要线程管理工具协助管理不同类型项目启动
-
+    let productType:string = this.getPackType()
+    switch(productType){
+      case 'app':
+        break
+      case 'service':
+        break
+      case 'lib':
+        break
+      case 'cli':
+        break
+      default:
+        console.error('未定义package type')
+        break
+    }
   }
   public getPackType(){
     return this.json.xCli?.type
