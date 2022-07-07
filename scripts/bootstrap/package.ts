@@ -33,6 +33,7 @@ export class Package {
   public async runStart() {
     //todo 需要线程管理工具协助管理不同类型项目启动
     let productType:string = this.getPackType()
+    const script = path.resolve(__dirname, './index.js')
     switch(productType){
       case 'app':
         break
