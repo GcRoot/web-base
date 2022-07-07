@@ -1,8 +1,8 @@
-import { exec } from 'child_process';
 //todo: 子项目包管理类(基础数据)
 import {PackageInfo} from './type'
 import path from 'path'
 import fs from 'fs'
+import { exec } from 'child_process';
 import { runCmd } from './runnerCmd'
 
 export class Package {
@@ -13,6 +13,8 @@ export class Package {
   constructor(file:string,private dir:string){
     this.fullname = path.resolve(dir, file)
     const _json:any = fs.readFileSync(this.fullname, 'utf-8')
+    // todo: 子项目更新迭代，加入版本控制
+    _json.version =_json.version?.split('.')?.map((x:string) => parseInt(x))
     this.json = _json
   }
 
@@ -64,5 +66,8 @@ export class Package {
   }
   public getName(){
     return this.json.name
+  }
+  public getVers(){
+    return this.json.version
   }
 }

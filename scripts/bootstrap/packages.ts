@@ -13,10 +13,14 @@ import fs from 'fs'
 export class Packages {
   packages: Array<Package>
   package: Package
+  ver:[number,number,number]
   marks: object  //行为边界控制状态
   constructor(packages:Array<Package>){
     this.packages = packages
     this.package = new Package('package.json', resolve(__dirname,'../../') )
+    // 永远保持最新版本号
+    const vers:any = packages.map( x => x.getVers()).sort((x,y) => (x[0] - y[0])*1000000 + (x[1] - y[1])*1000 + (x[2] - y[2]))
+    this.ver= vers[0]
     this.initMarks()
   }
 
@@ -28,6 +32,7 @@ export class Packages {
     const filestr = fs.readFileSync(resolve(__dirname,'../../.xd'),'utf-8')
     const json = JSON.parse(filestr)
     this.marks = json
+
   }
 
   public start(){
