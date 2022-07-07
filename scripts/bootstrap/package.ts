@@ -1,3 +1,4 @@
+import { exec } from 'child_process';
 //todo: 子项目包管理类(基础数据)
 import {PackageInfo} from './type'
 import path from 'path'
@@ -33,11 +34,21 @@ export class Package {
   public async runStart() {
     //todo 需要线程管理工具协助管理不同类型项目启动
     let productType:string = this.getPackType()
+    let productName:string = this.getName()
     const script = path.resolve(__dirname, './index.js')
     switch(productType){
       case 'app':
+        await this.openCmd(`pm2 start --name ${productName} --watch=true --exp-backoff-restart-delay=10000 ${script}`)
         break
       case 'service':
+        if(!this.json.xCli?.port){
+          console.error('启动服务需要自定义接口')
+          break
+        }
+        await this.openCmd(`pm2 start --name ${productName} --exp-backoff-restart-delay=10000 ${script}`, {
+          POPT: this.json.xCli.port
+        } )
+        await this.openCmd('pm2 list')
         break
       case 'lib':
         break
@@ -50,5 +61,8 @@ export class Package {
   }
   public getPackType(){
     return this.json.xCli?.type
+  }
+  public getName(){
+    return this.json.name
   }
 }
