@@ -9,6 +9,7 @@ import fs from 'fs'
  * 行为边界问题：
  * 1.安装后下次安装 缓存问题
  * 2.运行的时候，保证依赖安装完成，or 关联关系已生成好 
+ * 3. 子项目资源互用问题，是通过私库还是内部解决？
 */
 export class Packages {
   packages: Array<Package>
@@ -34,7 +35,7 @@ export class Packages {
     this.marks = json
   }
  /**
-  *  边界考虑：
+  *  版本号控制边界考虑：
   * 基座更新了版本号记录在了线程列表中，而子项目更新版本号问题？？ 需要吗？
   * 
  */
