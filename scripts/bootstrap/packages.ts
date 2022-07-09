@@ -10,7 +10,10 @@ import fs from 'fs'
  * 1.安装后下次安装 缓存问题
  * 2.运行的时候，保证依赖安装完成，or 关联关系已生成好 
  * 3. 子项目资源互用问题，是通过私库还是内部解决？
+ *  - 开发环境本地link 线上环境发布到npm线上
 */
+
+// todo 重新设计启动逻辑 ，加入环境变量控制 重新设计入口文件
 export class Packages {
   packages: Array<Package>
   package: Package
