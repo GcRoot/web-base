@@ -44,6 +44,8 @@ export class Packages {
  */
 
   public start(){
+    // 集成状态 解决边界问题
+    if(!this.marks['linked']) this.installLlinks()
     //todo 支持不同类型项目启动
     this.packages.forEach(x => x.runStart())
   }
