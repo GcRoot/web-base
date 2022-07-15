@@ -62,6 +62,33 @@ export class Packages {
     }
   }
 
+  public async installLlinks(name?:string){
+    if(name) { 
+      this.installLink(name) 
+      return
+    }
+    const links = new Set()
+    // 存储links
+    for(let pkg of this.packages) {
+      for(let link of pkg.getDevLinks()) {
+        if(!links.has(link)){
+          const pkgLink = this.packages.find(x => x.getName() === name)
+          if(!pkgLink) throw new Error('no link')
+          await pkgLink.link()
+        }
+        links.add(link)
+      }
+    }
+
+    // 执行当前项目link
+    for(let pkg of this.packages){
+      await pkg.linkDev()
+    }
+    // 记录状态
+    this.marks['linked'] = true
+    this.setMarks()
+  }
+
   public install(){
     this.packages.map((pake:Package) => pake.runInstall())
     // 标记状态
