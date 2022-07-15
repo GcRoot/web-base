@@ -28,6 +28,15 @@ export class Package {
     })
   }
 
+  public async link(){
+    if(this.getPackType() !== 'cli') {
+      await this.openCmd('yarn unlink')
+      await this.openCmd('yarn link')
+    }else {
+      await this.openCmd('npm link --force')
+    }
+  }
+
   public async runInstall(){
     // 执行命令 （当前工程的 不跨项目）
   await this.openCmd('yarn install')
@@ -61,6 +70,11 @@ export class Package {
         break
     }
   }
+  public async linkDev(){
+    for(let link of this.getDevLinks()){
+      await this.openCmd(`yarn link ${link}`)
+    }
+  }
   public getPackType(){
     return this.json.xCli?.type
   }
@@ -69,5 +83,8 @@ export class Package {
   }
   public getVers(){
     return this.json.version
+  }
+  public getDevLinks(){
+    return this.json.xCli?.devLinks||[]
   }
 }

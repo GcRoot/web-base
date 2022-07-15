@@ -6,7 +6,8 @@ export interface PackageInfo {
   main: string,
   xCli?:{
     type?: 'service'| 'app' | 'lib' | 'cli',
-    port?: number
+    port?: number,
+    devLinks: Array<string>
   },
   dependencies :{
     [dep:string] :string
