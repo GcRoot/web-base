@@ -48,6 +48,20 @@ export class Packages {
     this.packages.forEach(x => x.runStart())
   }
 
+  private async installLink(name:string,level: number =0) {
+    // 安装 指定的
+    const pkg = this.packages.find(x => x.getName() === name)
+    
+    for (let link of this.package.getDevLinks()) {
+      await this.installLink(link,level + 1)
+      
+    }
+    await pkg.linkDev()
+    if(level > 0) {
+      await pkg.link()
+    }
+  }
+
   public install(){
     this.packages.map((pake:Package) => pake.runInstall())
     // 标记状态
