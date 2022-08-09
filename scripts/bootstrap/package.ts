@@ -85,6 +85,6 @@ export class Package {
     return this.json.version
   }
   public getDevLinks(){
-    return this.json.xCli?.devLinks||[]
+    return this.json.xCli?.devLinks || []
   }
 }
