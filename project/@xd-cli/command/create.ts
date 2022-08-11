@@ -1,18 +1,20 @@
 import inquirer from 'inquirer'
 import fs from 'fs'
+import Clone from './clone'
 
 // const inquirer = require('inquirer')
 
 export default class Create {
   name:string ="create"
-
+  // private argv:any
   async run(argv:any) { 
+    // this.argv = argv
     // const sourceFile = argv.source
 		// if(!sourceFile)  {
 		// 	throw new Error("you should specify component source code file.")
 		// }
 		// if(!fs.existsSync(sourceFile)) {
-		// 	throw new Error(`file ${sourceFile} not found.`)
+		// 	 throw new Error(`file ${sourceFile} not found.`)
 		// }
     const answer = await this.questions()
     // answer.src = sourceFile
@@ -40,6 +42,7 @@ export default class Create {
     if(!answer.name) return 
     const config = {...answer}
     console.log(config)
-    fs.mkdirSync('./' + config.name)
+    await Clone.init(config.name)
+    // fs.mkdirSync('./' + config.name)
   }
 }
