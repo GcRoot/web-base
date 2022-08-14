@@ -1,4 +1,7 @@
-// import {promisify} from 'util'
+
+ // import {promisify} from 'util'
+
+// declare var require:any
 
 import {promisify} from 'util'
 
