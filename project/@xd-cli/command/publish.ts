@@ -24,6 +24,13 @@ export default class Publish{
     ])
     return result
   }
+  private async init(){
+    // 拉取发布脚手架（react/vue）
+
+    // 编译指定项目的文件生成 符合组件的文件
+
+    // 发布
+  }
   getPath(exclude:RegExp){
     const rootpath = path.resolve(__dirname,'../')
     const dirArr =  fs.readdirSync(rootpath)

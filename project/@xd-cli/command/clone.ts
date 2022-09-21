@@ -1,18 +1,23 @@
 
-import fs, { fdatasync } from 'fs'
+import fs, { fdatasync, readFileSync } from 'fs'
+import {resolve} from 'path' 
 import {clone} from '../utils/download'
 
 
 export default class Clone{
   name ='clone'
   static url:string  //删除根路径
-  static async init(name:any){
-    this.url = name
+  static gitAddress : any
+  static async init(cmdConfig:any){
+    this.url = cmdConfig.name
+    const name = cmdConfig.name
+    const gitUrl =  this.gitAddress[cmdConfig.gitUrl] || cmdConfig.gitUrl
     // 1. shell 给出友好反馈
-    console.log( '🚀创建项目: ' + name)
+    console.log( '🚀创建项目: ' + name  )
     // 2.程序做哪些业务操作
     // 查找 创建项目是否同名
     if(fs.existsSync(`${name}`)) {
+      // todo: 优化交互，deleteFile使用异步方法（后期考虑）
       console.log('🚀文件存在: 正在删除文件... ')
     //  const url =  fs.readdirSync(`${name}`)
     //  if(fs.statSync(name).isDirectory()) {
@@ -23,8 +28,8 @@ export default class Clone{
     //todo 无法往上递归删除
       // fs.rmdirSync('./del')
     } else{
-       await clone(`https://gitlab.com/flippidippi/download-git-repo-fixture.git#my-branch`,`${name}`)
-       console.log( '🚀创建成功: ' + '$ cd '+ name)
+        await clone(gitUrl,`${name}`)
+        console.log( '🚀创建成功: ' + '$ cd '+ name)
     }
    
   }
@@ -80,5 +85,15 @@ export default class Clone{
     }
     fs.rmdirSync(dir)
 
+  }
+
+  static readJson(){
+    const jsonPath = resolve(__dirname,'../src/data/depot.json')
+    let gitAddress:any = readFileSync(jsonPath,'utf-8')
+    gitAddress = JSON.parse(gitAddress) as object
+    const gitName = Object.keys(gitAddress)
+    this.gitAddress =  gitAddress
+  
+    return gitName
   }
 }
