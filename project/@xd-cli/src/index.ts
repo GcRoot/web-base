@@ -5,6 +5,7 @@ const  pars = parser(process.argv)
 const arg = pars._[2] 
 const dirname= pars._[3]
 
+
 // async function cmd(command){
 //   await runCmd(command,{
 //     env:{

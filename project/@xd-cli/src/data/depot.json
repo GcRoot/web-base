@@ -1,3 +1,4 @@
 {
-  "a": "https://gitlab.com/flippidippi/download-git-repo-fixture.git#my-branch"
+  "a": "https://gitlab.com/flippidippi/download-git-repo-fixture.git#my-branch",
+  "vue": "https://github.com/namexi/vue-component-template.git"
 }
