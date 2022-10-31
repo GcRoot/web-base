@@ -27,11 +27,9 @@ export default class Clone{
      this.deleteFile([],name) 
     //todo 无法往上递归删除
       // fs.rmdirSync('./del')
-    } else{
-        await clone(gitUrl,`${name}`)
-        console.log( '🚀创建成功: ' + '$ cd '+ name)
-    }
-   
+    } 
+    await clone(gitUrl,`${name}`)
+    console.log( '🚀创建成功: ' + '$ cd '+ name)
   }
 
   static deleteFile(arr?:string[],dir:string){

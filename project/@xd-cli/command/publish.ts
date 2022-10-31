@@ -36,10 +36,10 @@ export default class Publish{
         const gitDepot = Clone.gitAddress
         const gitUrl = gitDepot[config.framework]
       // 2. 拉取模版
-        await clone(gitUrl,`${config.framework}-template`)
+        await Clone.init({name:`${config.framework}-template`,gitUrl})
       // 3. 获取待发布项目信息
-      const pubPath =path.resolve(__dirname,`../${config.publishPath}`) 
-      console.log(pubPath)
+        const pubPath = path.resolve(__dirname,`../${config.publishPath}`) 
+        console.log(pubPath)
     // 编译指定项目的文件生成 符合组件的文件
      
     // 发布
