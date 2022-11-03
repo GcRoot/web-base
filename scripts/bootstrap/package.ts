@@ -58,7 +58,7 @@ export class Package {
         }
         await this.openCmd(`pm2 start --name ${productName} --exp-backoff-restart-delay=10000 ${script}`, {
           POPT: this.json.xCli.port
-        } )
+        })
         await this.openCmd('pm2 list')
         break
       case 'lib':

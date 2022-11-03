@@ -3,7 +3,8 @@ import inquirer  from 'inquirer'
 import path from 'path'
 import fs from 'fs'
 import Clone from './clone'
-import {clone} from '../utils/download'
+import { runCmd } from '../utils/index'
+// gulp build --gulpfile ./utils/glup.js --option 1
 export default class Publish{
   async run(par?:any){
     const choicesDir = this.getPath(/(node_modules|src|command|utils)/)
@@ -41,8 +42,9 @@ export default class Publish{
         const pubPath = path.resolve(__dirname,`../${config.publishPath}`) 
         console.log(pubPath)
     // 编译指定项目的文件生成 符合组件的文件
-     
-    // 发布
+    runCmd('gulp build --gulpfile ../utils/gulpmove.js --option 1',{})
+    // 发布 （文档） 代码发布到git
+
   }
   getPath(exclude:RegExp){
     const rootpath = path.resolve(__dirname,'../')
@@ -58,6 +60,9 @@ export default class Publish{
   } 
 
   public publish(){
-    //  oss
+    //  oss 
+  }
+  public gitcmd(){
+
   }
 }

@@ -12,6 +12,6 @@ export const clone = async (repo,desc) =>{
     const procsess = ora(`下载...${repo}`)
     procsess.start()
   // await download(repo,desc)
-    await download(`direct:${repo}`, desc, { clone: true })
+    await download(`${repo}`, desc,{ clone: true })
     procsess.succeed()
 }
