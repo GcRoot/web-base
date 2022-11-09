@@ -1,5 +1,4 @@
 const gulp = require("gulp");
-const parser = require("yargs-parser");
 
 const parsLen = process.argv.length - 1;
 const dirName = `../${process.argv[parsLen]}/**`;
