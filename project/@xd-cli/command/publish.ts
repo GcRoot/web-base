@@ -27,7 +27,7 @@ export default class Publish{
       publishFile: undefined,
       mode:false
     }
-
+    let compFileResult = {}
         console.log(path.resolve(__dirname,`../${result.publishPath}`))
         // 选中 去找子文件夹
         const selectPath:string[] = this.getPath(path.resolve(__dirname,`../${result.publishPath}`),false, /src/) 
@@ -51,7 +51,7 @@ export default class Publish{
           const compsFilesPath = `${selectPath[0]}/${compResult.publishFile}`
           if(fs.statSync(compsFilesPath).isDirectory()){
             const cFiles =this.getChildDir(compsFilesPath)
-            compResult= await inquirer.prompt([
+            compFileResult= await inquirer.prompt([
               {
                 message: "select a files to publish",
                 choices: cFiles,
@@ -69,7 +69,7 @@ export default class Publish{
         name: "framework",
       },
     ])
-    return {...result,...compResult,...compTempResult}
+    return {...result,...compResult,...compTempResult,...compFileResult}
   }
   private async init(config:any){
     console.log(config)
@@ -81,10 +81,10 @@ export default class Publish{
       // 2. 拉取模版
         await Clone.init({name:`${config.framework}-template`,gitUrl})
       // 3. 获取待发布项目信息
-        const pubPath = path.resolve(__dirname,`../${config.publishPath}`) 
+        const pubPath = path.resolve(__dirname,`../${config.publishPath}/src/${config.publishFile}`) 
         console.log(pubPath)
     // 编译指定项目的文件生成 符合组件的文件
-    if(config.mode) runCmd('gulp build --gulpfile ../utils/gulpmove.js --option 1',{})
+    if(config.mode) runCmd(`gulp build --gulpfile utils/gulpmove.js --option ${pubPath}`,{})
   
     // 发布 （文档） 代码发布到git
 
