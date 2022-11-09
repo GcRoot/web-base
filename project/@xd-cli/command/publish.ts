@@ -31,7 +31,6 @@ export default class Publish{
         console.log(path.resolve(__dirname,`../${result.publishPath}`))
         // 选中 去找子文件夹
         const selectPath:string[] = this.getPath(path.resolve(__dirname,`../${result.publishPath}`),false, /src/) 
-      
         const choicesFile = this.getChildDir(selectPath[0])
         compResult= await inquirer.prompt([
           {
@@ -89,7 +88,8 @@ export default class Publish{
       const filesPath = config.files.map(el => path.resolve(__dirname,`../${config.publishPath}/src/${config.publishFile}/${el}`) )
       runCmd(`gulp build --gulpfile utils/gulpmove.js --option ${filesPath}`,{})
     }
-    // 发布 （文档） 代码发布到git
+    // 发布 （文档） 代码发布到git   
+    //Todo: 版本号能力取上级能力？ 待考虑
 
   }
   getPath(root?:string | undefined,exclude?:RegExp | boolean,include?:RegExp ){
