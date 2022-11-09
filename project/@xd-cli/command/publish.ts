@@ -21,17 +21,13 @@ export default class Publish{
         type: "list",
         name: "publishPath",
       },
-      {
-          message: "Is this for publish",
-          choices: ["dir", "file"],
-          type: "confirm",
-          name: "mode"
-      }  
+    
     ])
     let compResult = {
-      publishFile: undefined
+      publishFile: undefined,
+      mode:false
     }
-    if(!result.mode) {
+
         console.log(path.resolve(__dirname,`../${result.publishPath}`))
         // 选中 去找子文件夹
         const selectPath:string[] = this.getPath(path.resolve(__dirname,`../${result.publishPath}`),false, /src/) 
@@ -39,27 +35,32 @@ export default class Publish{
         const choicesFile = this.getChildDir(selectPath[0])
         compResult= await inquirer.prompt([
           {
-            message: "select a file to publish",
+            message: "select a file/dir to publish",
             choices: choicesFile,
             type: "list",
             name: "publishFile",
-          }
+          },
+          {
+            message: "Is this for publish",
+            choices: ["dir", "file"],
+            type: "confirm",
+            name: "mode"
+        }  
         ])
-        const compsFilesPath = `${selectPath[0]}/${compResult.publishFile}`
-        if(fs.statSync(compsFilesPath).isDirectory()){
-          const cFiles =this.getChildDir(compsFilesPath)
-          console.log(cFiles)
-          compResult= await inquirer.prompt([
-            {
-              message: "select a files to publish",
-              choices: cFiles,
-              type: "checkbox",
-              name: "files",
-            }
-          ])
+        if(!compResult.mode) {
+          const compsFilesPath = `${selectPath[0]}/${compResult.publishFile}`
+          if(fs.statSync(compsFilesPath).isDirectory()){
+            const cFiles =this.getChildDir(compsFilesPath)
+            compResult= await inquirer.prompt([
+              {
+                message: "select a files to publish",
+                choices: cFiles,
+                type: "checkbox",
+                name: "files",
+              }
+            ])
+          }
         }
-    }
-
     const compTempResult  = await inquirer.prompt([
       {
         message: "select a framework template",
