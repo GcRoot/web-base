@@ -85,7 +85,10 @@ export default class Publish{
         console.log(pubPath)
     // 编译指定项目的文件生成 符合组件的文件
     if(config.mode) runCmd(`gulp build --gulpfile utils/gulpmove.js --option ${pubPath}`,{})
-  
+    else {
+      const filesPath = config.files.map(el => path.resolve(__dirname,`../${config.publishPath}/src/${config.publishFile}/${el}`) )
+      runCmd(`gulp build --gulpfile utils/gulpmove.js --option ${filesPath}`,{})
+    }
     // 发布 （文档） 代码发布到git
 
   }
